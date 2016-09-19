@@ -21,7 +21,7 @@ func _fixed_process(delta):
 	speed = sqrt(pow(get_linear_velocity().x,2) + pow(get_linear_velocity().y,2))
 	on_ground = false
 	
-	if(get_colliding_bodies().size()>0):
+	if get_colliding_bodies().size() > 0:
 		for body in get_colliding_bodies():
 			if body.get_name() == "TileMap":
 				on_ground = true
@@ -40,7 +40,7 @@ func _fixed_process(delta):
 			velocity.y -= cos(angleRad) * ACCELERATION * delta
 			apply_impulse(Vector2(0,0),velocity)
 	
-	if(on_ground and abs(int(speed)) == 0):
+	if on_ground and abs(int(speed)) == 0:
 		landed = true
 		#get_node("../Label").set_text("LANDED")
 	else: 
@@ -48,16 +48,19 @@ func _fixed_process(delta):
 		#get_node("../Label").set_text("SPEED: " + str(speed))
 	
 func body_enter(who):
-	if ( speed > MAX_LANDING_SPEED ):
+	if speed > MAX_LANDING_SPEED:
 		print("CRASH!")
 		play_explosion()
 	
 func _input(event):
-	if(event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship):
+	if event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship:
 		print("exit ship")
 		exit_ship()
-	elif (event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and exited_ship):
+	elif event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and exited_ship:
 		enter_ship()
+		
+	if event.is_action("shoot") and not event.is_echo() and event.is_pressed() and not exited_ship:
+		shoot()
 	
 func play_explosion():
 	var spark = preload("res://objects/fx/explosion.tscn").instance()
@@ -86,6 +89,12 @@ func enter_ship():
 		exited_ship = false
 		print("entered ship")
 		
+func shoot():
+	var shot = preload("res://objects/shot.tscn").instance()
+	shot.set_pos(get_node("shoot_pos").get_global_pos())
+	shot.set_velocity(calc_velocity_from_angle(get_rotd(), 500))
+	get_node("../").add_child(shot)
+	
 func _ready():
 	set_contact_monitor(true)
 	set_max_contacts_reported(5)
@@ -93,3 +102,9 @@ func _ready():
 	set_fixed_process(true)
 	set_process_input(true)
 	
+func calc_velocity_from_angle(angle, speed):
+	var angleRad = (angle * PI) / 180
+	var velocity = Vector2(0,0)
+	velocity.x -= sin(angleRad) * speed
+	velocity.y -= cos(angleRad) * speed
+	return velocity
