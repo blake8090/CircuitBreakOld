@@ -70,11 +70,17 @@ func play_explosion():
 	
 func exit_ship():
 	if landed:
+		# freeze ship in place - no collisions, no gravity
 		get_node("CollisionShape2D").set_trigger(true)
 		set_gravity_scale(0)
+	
 		var char = preload("res://objects/player/character.tscn").instance()
 		char.set_pos(get_global_pos())
 		get_node("../").add_child(char)
+		
+		# switch cameras
+		get_node("Camera2D").clear_current()
+		char.get_node("Camera2D").make_current()
 		exited_ship = true
 
 func enter_ship():
@@ -84,8 +90,12 @@ func enter_ship():
 	
 	if distance <= ENTER_DISTANCE:
 		get_node("../character").queue_free()
+		get_node("Camera2D").make_current()
+		
+		# unfreeze ship
 		get_node("CollisionShape2D").set_trigger(false)
 		set_gravity_scale(1)
+		
 		exited_ship = false
 		print("entered ship")
 		
