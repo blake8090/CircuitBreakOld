@@ -130,6 +130,18 @@ max_lines_visible = -1
 [node name="turret" parent="turrets" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 917.121, 526.7 )
-bullet_speed = 500
+
+[node name="turret1" parent="turrets" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 1204.41, 620.008 )
+transform/scale = Vector2( 1, 1 )
+
+[node name="turret2" parent="turrets" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 443.214, 202.577 )
+
+[node name="turret3" parent="turrets" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 1030.07, 141.19 )
 
 

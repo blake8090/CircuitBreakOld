@@ -29,7 +29,8 @@ func _fixed_process(delta):
 				can_shoot = false
 
 func hit(bullet):
-	pass
+	ObjectFactory.create_fx_explosion(get_global_pos())
+	queue_free()
 
 func _on_visibility_enter_screen():
 	set_fixed_process(true)
