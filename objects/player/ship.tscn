@@ -32,6 +32,13 @@ velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = 5.0
 script/script = ExtResource( 1 )
+speed = 300
+torque = 4000
+acceleration = 300
+max_landing_speed = 100
+drag = 0
+gravity = 1.0
+enter_distance = 25
 
 [node name="Sprite" type="Sprite" parent="."]
 
