@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://levels/tileset.xml" type="TileSet" id=1]
 [ext_resource path="res://objects/player/ship.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gfx/light.png" type="Texture" id=3]
+[ext_resource path="res://objects/turret.tscn" type="PackedScene" id=4]
 
 [node name="game" type="Node2D"]
 
@@ -27,13 +28,6 @@ tile_data = IntArray( 327710, 1, 327711, 0, 327712, 0, 327713, 0, 327714, 2, 393
 [node name="ship" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 661.785, 465.069 )
-speed = 300
-torque = 4000
-acceleration = 300
-max_landing_speed = 100
-drag = 0
-gravity = 1.0
-enter_distance = 25
 
 [node name="Light2D" type="Light2D" parent="."]
 
@@ -130,5 +124,12 @@ text = "Press E to enter and exit ship when landed"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="turrets" type="Node2D" parent="."]
+
+[node name="turret" parent="turrets" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 917.121, 526.7 )
+bullet_speed = 500
 
 
