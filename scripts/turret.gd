@@ -6,20 +6,26 @@ onready var shoot_timer = get_node("shoot_timer")
 
 export var bullet_speed = 500
 var can_shoot = false
+var target = null
 
 func _ready():
 	root = get_tree().get_root().get_node("game")
 
 func _fixed_process(delta):
-	var space_state = get_world_2d().get_direct_space_state()
-	var ship = root.get_node("ship")
-	var ship_pos = ship.get_global_pos()
+	# character is always first priority - if no character exists then target the ship
+	if root.has_node("character"):
+		target = root.get_node("character")
+	elif root.has_node("ship"):
+		target = root.get_node("ship")
+		
+	var target_pos = target.get_global_pos()
 	var pos = get_global_pos()
-	var result = space_state.intersect_ray(pos, ship_pos, [self])
+	var space_state = get_world_2d().get_direct_space_state()
+	var result = space_state.intersect_ray(pos, target_pos, [self])
 	
 	if not result.empty():
-		if result.collider.get_name() == "ship":
-			var angle = atan2(pos.x - ship_pos.x, pos.y - ship_pos.y)
+		if result.collider.get_name() == target.get_name():
+			var angle = atan2(pos.x - target_pos.x, pos.y - target_pos.y)
 			set_rot(angle)
 			
 			if can_shoot:
