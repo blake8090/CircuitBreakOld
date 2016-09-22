@@ -27,21 +27,13 @@ tile_data = IntArray( 327710, 1, 327711, 0, 327712, 0, 327713, 0, 327714, 2, 393
 [node name="ship" parent="." instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 661.785, 465.069 )
-
-[node name="Label" type="Label" parent="."]
-
-visibility/blend_mode = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 258.0
-margin/bottom = 67.0
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+speed = 300
+torque = 4000
+acceleration = 300
+max_landing_speed = 100
+drag = 0
+gravity = 1.0
+enter_distance = 25
 
 [node name="Light2D" type="Light2D" parent="."]
 
@@ -91,23 +83,6 @@ shadow/item_mask = 1
 
 color = Color( 0.0625, 0.0625, 0.0625, 1 )
 
-[node name="Label 2" type="Label" parent="."]
-
-visibility/blend_mode = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 3.0
-margin/top = 80.0
-margin/right = 43.0
-margin/bottom = 94.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Press E to enter and exit ship"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
 [node name="Area2D" type="Area2D" parent="."]
 
 transform/pos = Vector2( 731.671, 504.264 )
@@ -116,5 +91,44 @@ gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="Label" type="Label" parent="HUDLayer"]
+
+visibility/blend_mode = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 258.0
+margin/bottom = 17.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label 2" type="Label" parent="HUDLayer"]
+
+visibility/blend_mode = 1
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 21.0
+margin/right = 187.0
+margin/bottom = 35.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Press E to enter and exit ship when landed"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

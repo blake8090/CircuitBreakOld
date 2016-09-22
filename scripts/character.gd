@@ -1,6 +1,8 @@
 
 extends KinematicBody2D
 
+var root = null
+
 const MAX_SPEED = 300
 const ACCELERATION = 15
 const JUMP_HEIGHT = 350
@@ -76,7 +78,7 @@ func _fixed_process(delta):
 		if velocity.x < 0: velocity.x = -MAX_SPEED
 		if velocity.x > 0: velocity.x = MAX_SPEED
 	
-	get_node("../Label").set_text(str(velocity.y))
+	root.get_node("HUDLayer/Label").set_text(str(velocity.y))
 	
 	velocity.y += delta * GRAVITY
 
@@ -120,4 +122,5 @@ func calc_gravity_on_slope(speed):
 	return (10000 * speed) / 200
 
 func _ready():
+	root = get_tree().get_root().get_node("game")
 	set_fixed_process(true)
