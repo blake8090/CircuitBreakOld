@@ -17,22 +17,25 @@ func _fixed_process(delta):
 		target = root.get_node("character")
 	elif root.has_node("ship"):
 		target = root.get_node("ship")
+	else:
+		target = null
 		
-	var target_pos = target.get_global_pos()
-	var pos = get_global_pos()
-	var space_state = get_world_2d().get_direct_space_state()
-	var result = space_state.intersect_ray(pos, target_pos, [self])
-	
-	if not result.empty():
-		if result.collider.get_name() == target.get_name():
-			var angle = atan2(pos.x - target_pos.x, pos.y - target_pos.y)
-			set_rot(angle)
-			
-			if can_shoot:
-				ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), calc_velocity_from_angle(get_rotd(), bullet_speed))
-				shoot_timer.set_wait_time(randi()%4+1) # random int 1-3
-				shoot_timer.start()
-				can_shoot = false
+	if not target == null:
+		var target_pos = target.get_global_pos()
+		var pos = get_global_pos()
+		var space_state = get_world_2d().get_direct_space_state()
+		var result = space_state.intersect_ray(pos, target_pos, [self])
+		
+		if not result.empty():
+			if result.collider.get_name() == target.get_name():
+				var angle = atan2(pos.x - target_pos.x, pos.y - target_pos.y)
+				set_rot(angle)
+				
+				if can_shoot:
+					ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), calc_velocity_from_angle(get_rotd(), bullet_speed))
+					shoot_timer.set_wait_time(randi()%4+1) # random int 1-3
+					shoot_timer.start()
+					can_shoot = false
 
 func hit(bullet):
 	ObjectFactory.create_fx_explosion(get_global_pos())

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="TileSet" subresource_count="7" version="2.1" version_name="Godot Engine v2.1.stable.official">
+<resource_file type="TileSet" subresource_count="11" version="2.1" version_name="Godot Engine v2.1.stable.official">
 	<ext_resource path="res://gfx/block_l.png" type="Texture" index="1"></ext_resource>
+	<ext_resource path="res://gfx/block_r.png" type="Texture" index="3"></ext_resource>
 	<ext_resource path="res://gfx/block.png" type="Texture" index="0"></ext_resource>
-	<ext_resource path="res://gfx/block_r.png" type="Texture" index="2"></ext_resource>
+	<ext_resource path="res://gfx/block_ul.png" type="Texture" index="4"></ext_resource>
+	<ext_resource path="res://gfx/block_ur.png" type="Texture" index="2"></ext_resource>
 	<resource type="ConvexPolygonShape2D" path="local://1">
 		<real name="custom_solver_bias"> 0 </real>
 		<vector2_array name="points" len="5"> 			-16, -16, 16, -16, 16, 16, -16, 16, -16, -16 </vector2_array>
@@ -13,9 +15,19 @@
 		<vector2_array name="points" len="3"> 			-16, 16, 16, -16, 16, 16 </vector2_array>
 
 	</resource>
-	<resource type="ConvexPolygonShape2D" path="local://3">
+	<resource type="ConvexPolygonShape2D" path="local://5">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="3"> 			-16, 16, -16, -16, 16, -16 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://6">
 		<real name="custom_solver_bias"> 0 </real>
 		<vector2_array name="points" len="3"> 			16, 16, -16, 16, -16, -16 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://4">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="3"> 			-16, -16, 16, -16, 16, 16 </vector2_array>
 
 	</resource>
 	<main_resource>
@@ -47,7 +59,37 @@
 		<resource name="2/occluder"></resource>		<vector2 name="2/navigation_offset"> 16, 16 </vector2>
 		<resource name="2/navigation"></resource>		<vector2 name="2/shape_offset"> 16, 16 </vector2>
 		<array name="2/shapes" len="1" shared="false">
-			<resource  resource_type="Shape2D" path="local://3">  </resource>
+			<resource  resource_type="Shape2D" path="local://5">  </resource>
+		</array>
+		<string name="3/name"> "ground_r" </string>
+		<resource name="3/texture" external="3">  </resource>
+		<vector2 name="3/tex_offset"> 0, 0 </vector2>
+		<resource name="3/material"></resource>		<rect2 name="3/region"> 0, 0, 32, 32 </rect2>
+		<vector2 name="3/occluder_offset"> 16, 16 </vector2>
+		<resource name="3/occluder"></resource>		<vector2 name="3/navigation_offset"> 16, 16 </vector2>
+		<resource name="3/navigation"></resource>		<vector2 name="3/shape_offset"> 16, 16 </vector2>
+		<array name="3/shapes" len="1" shared="false">
+			<resource  resource_type="Shape2D" path="local://6">  </resource>
+		</array>
+		<string name="4/name"> "ground_r1" </string>
+		<resource name="4/texture" external="4">  </resource>
+		<vector2 name="4/tex_offset"> 0, 0 </vector2>
+		<resource name="4/material"></resource>		<rect2 name="4/region"> 0, 0, 32, 32 </rect2>
+		<vector2 name="4/occluder_offset"> 16, 16 </vector2>
+		<resource name="4/occluder"></resource>		<vector2 name="4/navigation_offset"> 16, 16 </vector2>
+		<resource name="4/navigation"></resource>		<vector2 name="4/shape_offset"> 16, 16 </vector2>
+		<array name="4/shapes" len="1" shared="false">
+			<resource  resource_type="Shape2D" path="local://4">  </resource>
+		</array>
+		<string name="5/name"> "ground_r2" </string>
+		<resource name="5/texture" external="2">  </resource>
+		<vector2 name="5/tex_offset"> 0, 0 </vector2>
+		<resource name="5/material"></resource>		<rect2 name="5/region"> 0, 0, 32, 32 </rect2>
+		<vector2 name="5/occluder_offset"> 16, 16 </vector2>
+		<resource name="5/occluder"></resource>		<vector2 name="5/navigation_offset"> 16, 16 </vector2>
+		<resource name="5/navigation"></resource>		<vector2 name="5/shape_offset"> 16, 16 </vector2>
+		<array name="5/shapes" len="1" shared="false">
+			<resource  resource_type="Shape2D" path="local://5">  </resource>
 		</array>
 
 	</main_resource>

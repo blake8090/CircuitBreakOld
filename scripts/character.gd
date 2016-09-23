@@ -16,6 +16,7 @@ var is_jumping = false
 var is_falling = false
 var jump_pressed = false
 var facing_right = true
+var health = 5
 
 func _fixed_process(delta):
 	if test_move(Vector2(0,1)) && velocity.y > 0:
@@ -135,6 +136,23 @@ func calc_gravity_on_slope(speed):
 	# best ratio for 45 degree slopes is 10000 gravity per 200 speed
 	return (10000 * speed) / 200
 
+func hit(bullet):
+	var p = ObjectFactory.create_fx_explosion(get_global_pos())
+	p.set_color(Color(1,0,0))
+	health -= 1
+	if health < 0: 
+		health = 0
+	root.get_node("HUDLayer/player_health").set_text("Player Health: " + str(health))
+	if health == 0:
+		root.get_node("HUDLayer/player_health").set_text("Player Killed")
+		root.get_node("HUDLayer/player_health").add_color_override("font_color", Color(1,0,0))
+		hide()
+		#turn off collision & gravity & everything
+		get_node("CollisionShape2D").set_trigger(true)
+		set_fixed_process(false)
+		set_process_input(false)
+		set_name("player_dead") # hack to get turrets to stop firing
+
 func _input(event):
 	if event.is_action("shoot") and not event.is_echo() and event.is_pressed():
 		var speed
@@ -145,5 +163,6 @@ func _input(event):
 
 func _ready():
 	root = get_tree().get_root().get_node("game")
+	root.get_node("HUDLayer/player_health").set_text("Player Health: " + str(health))
 	set_fixed_process(true)
 	set_process_input(true)
