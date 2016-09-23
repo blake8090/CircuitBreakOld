@@ -15,6 +15,7 @@ func create_obj_bullet(shooter, pos, velocity):
 	obj.init(shooter, velocity)
 	obj.set_pos(pos)
 	root.add_child(obj)
+	return obj
 
 func create_obj_character(pos):
 	var obj = obj_character.instance()
