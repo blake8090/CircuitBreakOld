@@ -134,7 +134,6 @@ transform/pos = Vector2( 917.121, 526.7 )
 [node name="turret1" parent="turrets" instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 1204.41, 620.008 )
-transform/scale = Vector2( 1, 1 )
 
 [node name="turret2" parent="turrets" instance=ExtResource( 4 )]
 

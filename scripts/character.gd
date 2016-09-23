@@ -15,6 +15,7 @@ var can_jump = true
 var is_jumping = false
 var is_falling = false
 var jump_pressed = false
+var facing_right = true
 
 func _fixed_process(delta):
 	if test_move(Vector2(0,1)) && velocity.y > 0:
@@ -55,6 +56,13 @@ func _fixed_process(delta):
 			velocity.x -= ACCELERATION
 		# recalculate gravity for current x-velocity to avoid sliding down slopes at low speeds
 		if not is_jumping and not is_falling: GRAVITY = calc_gravity_on_slope(abs(velocity.x))
+		
+		if facing_right:
+			get_node("Sprite").set_flip_h(true)
+			facing_right = false
+			# flip shoot_pos to match sprite
+			var p = get_node("shoot_pos")
+			p.set_pos(Vector2(p.get_pos().x * -1, 0))
 	elif Input.is_action_pressed("ui_right") and can_move_right:
 		if test_move(Vector2(-1,-1)): velocity.x = 0
 		if velocity.x < 0: 
@@ -62,6 +70,12 @@ func _fixed_process(delta):
 		else: 
 			velocity.x += ACCELERATION
 		if not is_jumping and not is_falling: GRAVITY = calc_gravity_on_slope(abs(velocity.x))
+		
+		if not facing_right:
+			get_node("Sprite").set_flip_h(false)
+			facing_right = true
+			var p = get_node("shoot_pos")
+			p.set_pos(Vector2(p.get_pos().x * -1, 0))
 	else:
 		# apply friction if not moving (unless we hit a wall, then stop immediately)
 		if test_move(Vector2(-1,-1)) or test_move(Vector2(1,-1)):
@@ -121,6 +135,15 @@ func calc_gravity_on_slope(speed):
 	# best ratio for 45 degree slopes is 10000 gravity per 200 speed
 	return (10000 * speed) / 200
 
+func _input(event):
+	if event.is_action("shoot") and not event.is_echo() and event.is_pressed():
+		var speed
+		if facing_right: speed = Vector2(1,0) * 500
+		else: speed = Vector2(-1,0) * 500
+		var b = ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), speed)
+		b.set_scale(Vector2(0.5, 0.5))
+
 func _ready():
 	root = get_tree().get_root().get_node("game")
 	set_fixed_process(true)
+	set_process_input(true)
