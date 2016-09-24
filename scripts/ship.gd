@@ -1,6 +1,8 @@
 
 extends RigidBody2D
 
+const Utils = preload("utils.gd")
+
 export var speed = 300
 export var torque = 4000
 export var acceleration = 300
@@ -13,13 +15,12 @@ var crashed = false
 var on_ground = false
 var landed = false
 var exited_ship = false
-	
+
 var current_speed = 0
 var health = 10
 
 func _fixed_process(delta):
-	var velocity = Vector2(0,0)
-	current_speed = sqrt(pow(get_linear_velocity().x,2) + pow(get_linear_velocity().y,2))
+	current_speed = get_linear_velocity().length()
 	on_ground = false
 	
 	if get_colliding_bodies().size() > 0:
@@ -36,22 +37,17 @@ func _fixed_process(delta):
 			set_applied_torque(0)
 			
 		if Input.is_action_pressed("ui_up"):
-			var angleRad = (get_rotd() * PI) / 180
-			velocity.x -= sin(angleRad) * acceleration * delta
-			velocity.y -= cos(angleRad) * acceleration * delta
-			apply_impulse(Vector2(0,0),velocity)
+			apply_impulse(Vector2(0,0), Utils.get_velocity_from_angle(get_rotd(), acceleration * delta))
 	
 	if on_ground and abs(int(current_speed)) == 0:
 		landed = true
 	else: 
 		landed = false
-	
+
 func body_enter(who):
 	if current_speed > max_landing_speed:
 		hit(self)
-		#print("CRASH!")
-		#ObjectFactory.create_fx_explosion(get_global_pos())
-	
+
 func _input(event):
 	if event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship:
 		print("exit ship")
@@ -60,9 +56,7 @@ func _input(event):
 		enter_ship()
 		
 	if event.is_action("shoot") and not event.is_echo() and event.is_pressed() and not exited_ship:
-		ObjectFactory.create_obj_bullet(self, \
-										get_node("shoot_pos").get_global_pos(), \
-										calc_velocity_from_angle(get_rotd(), 700))
+		ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), Utils.get_velocity_from_angle(get_rotd(), 700))
 
 func exit_ship():
 	if landed:
@@ -124,10 +118,3 @@ func _ready():
 	set_gravity_scale(gravity)
 	set_fixed_process(true)
 	set_process_input(true)
-
-func calc_velocity_from_angle(angle, speed):
-	var angleRad = (angle * PI) / 180
-	var velocity = Vector2(0,0)
-	velocity.x -= sin(angleRad) * speed
-	velocity.y -= cos(angleRad) * speed
-	return velocity
