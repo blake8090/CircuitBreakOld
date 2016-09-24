@@ -5,9 +5,6 @@ var fx_explosion = preload("res://objects/fx/explosion.tscn")
 var obj_character = preload("res://objects/player/character.tscn")
 var obj_bullet = preload("res://objects/bullet.tscn")
 
-func _ready():
-	pass
-
 func create_obj_bullet(shooter, pos, velocity):
 	var root = get_tree().get_root().get_node("game")
 	var obj = obj_bullet.instance()
