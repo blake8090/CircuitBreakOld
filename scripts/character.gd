@@ -2,6 +2,7 @@
 extends KinematicBody2D
 
 var root = null
+onready var sprite = get_node("AnimatedSprite")
 
 const MAX_SPEED = 300
 const ACCELERATION = 15
@@ -9,6 +10,8 @@ const JUMP_HEIGHT = 350
 const FRICTION = 50
 var GRAVITY
 
+var frameTimer = 0
+var frameDuration = 0.08
 var velocity = Vector2()
 var can_wall_jump = true
 var can_jump = true
@@ -59,7 +62,7 @@ func _fixed_process(delta):
 		if not is_jumping and not is_falling: GRAVITY = calc_gravity_on_slope(abs(velocity.x))
 		
 		if facing_right:
-			get_node("Sprite").set_flip_h(true)
+			sprite.set_flip_h(true)
 			facing_right = false
 			# flip shoot_pos to match sprite
 			var p = get_node("shoot_pos")
@@ -73,7 +76,7 @@ func _fixed_process(delta):
 		if not is_jumping and not is_falling: GRAVITY = calc_gravity_on_slope(abs(velocity.x))
 		
 		if not facing_right:
-			get_node("Sprite").set_flip_h(false)
+			sprite.set_flip_h(false)
 			facing_right = true
 			var p = get_node("shoot_pos")
 			p.set_pos(Vector2(p.get_pos().x * -1, 0))
@@ -151,6 +154,7 @@ func hit(bullet):
 		get_node("CollisionShape2D").set_trigger(true)
 		set_fixed_process(false)
 		set_process_input(false)
+		set_process(false)
 		set_name("player_dead") # hack to get turrets to stop firing
 
 func _input(event):
@@ -161,8 +165,21 @@ func _input(event):
 		var b = ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), speed)
 		b.set_scale(Vector2(0.5, 0.5))
 
+func _process(delta):
+	handle_animation(delta)
+
+func handle_animation(delta):
+	frameTimer = frameTimer + delta
+	if frameTimer > frameDuration:
+		if sprite.get_frame() == sprite.get_sprite_frames().get_frame_count("default")-1:
+			sprite.set_frame(0)
+		else:
+			sprite.set_frame(sprite.get_frame() + 1)
+		frameTimer = 0
+
 func _ready():
 	root = get_tree().get_root().get_node("game")
 	root.get_node("HUDLayer/player_health").set_text("Player Health: " + str(health))
 	set_fixed_process(true)
+	set_process(true)
 	set_process_input(true)
