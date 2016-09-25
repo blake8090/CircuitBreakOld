@@ -22,6 +22,10 @@ var facing_right = true
 var health = 5
 
 func _fixed_process(delta):
+	# if done playing the shoot anim then play the idle anim
+	if get_node("AnimationPlayer").get_current_animation() == "idle_shoot" and not get_node("AnimationPlayer").is_playing():
+		get_node("AnimationPlayer").play("idle")
+		
 	if test_move(Vector2(0,1)) && velocity.y > 0:
 		# apply sufficient downward force to stick character to slopes
 		GRAVITY = 10000
@@ -162,6 +166,7 @@ func hit(bullet):
 
 func _input(event):
 	if event.is_action("shoot") and not event.is_echo() and event.is_pressed():
+		get_node("AnimationPlayer").play("idle_shoot")
 		var speed
 		if facing_right: speed = Vector2(1,0) * 500
 		else: speed = Vector2(-1,0) * 500
