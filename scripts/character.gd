@@ -2,7 +2,7 @@
 extends KinematicBody2D
 
 var root = null
-onready var sprite = get_node("AnimatedSprite")
+onready var sprite = get_node("Sprite")
 
 const MAX_SPEED = 300
 const ACCELERATION = 15
@@ -36,10 +36,11 @@ func _fixed_process(delta):
 		GRAVITY = 800
 		is_falling = true
 	
-	#if facing_right and test_move(Vector2(0,1)) and test_move(Vector2(1,-0.5)) and not test_move(Vector2(1,-1)):
-	#	root.get_node("HUDLayer/Label").set_text("on right slope")
-	#else:
-	#	root.get_node("HUDLayer/Label").set_text("")
+	#if not facing_right and test_move(Vector2(0,2)) and test_move(Vector2(1,-0.5)) and not test_move(Vector2(1,-1)):
+	if not facing_right and test_move(Vector2(0,1)):
+		root.get_node("HUDLayer/Label").set_text("down right slope")
+	else:
+		root.get_node("HUDLayer/Label").set_text("")
 	
 	# reset y velocity if char hit ceiling
 	if test_move(Vector2(0,-1)):
