@@ -39,7 +39,7 @@ animations = [ { "frames":[ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 )
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 0.803391, 0, 0, 1.65223, 0.47451, -0.46438 )
+shapes/0/transform = Matrix32( 0.803391, 0, 0, 1.62391, 0.47451, -0.844394 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -60,8 +60,8 @@ offset = Vector2( 0, -5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 
-transform/pos = Vector2( 0.47451, -0.46438 )
-transform/scale = Vector2( 0.803391, 1.65223 )
+transform/pos = Vector2( 0.47451, -0.844394 )
+transform/scale = Vector2( 0.803391, 1.62391 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
