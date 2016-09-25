@@ -31,7 +31,12 @@ func _fixed_process(delta):
 	else:
 		GRAVITY = 800
 		is_falling = true
-
+	
+	#if facing_right and test_move(Vector2(0,1)) and test_move(Vector2(1,-0.5)) and not test_move(Vector2(1,-1)):
+	#	root.get_node("HUDLayer/Label").set_text("on right slope")
+	#else:
+	#	root.get_node("HUDLayer/Label").set_text("")
+	
 	# reset y velocity if char hit ceiling
 	if test_move(Vector2(0,-1)):
 		velocity.y = 0
@@ -95,8 +100,6 @@ func _fixed_process(delta):
 	if abs(velocity.x) > MAX_SPEED:
 		if velocity.x < 0: velocity.x = -MAX_SPEED
 		if velocity.x > 0: velocity.x = MAX_SPEED
-	
-	root.get_node("HUDLayer/Label").set_text(str(velocity.y))
 	
 	velocity.y += delta * GRAVITY
 
@@ -165,21 +168,8 @@ func _input(event):
 		var b = ObjectFactory.create_obj_bullet(self, get_node("shoot_pos").get_global_pos(), speed)
 		b.set_scale(Vector2(0.5, 0.5))
 
-func _process(delta):
-	handle_animation(delta)
-
-func handle_animation(delta):
-	frameTimer = frameTimer + delta
-	if frameTimer > frameDuration:
-		if sprite.get_frame() == sprite.get_sprite_frames().get_frame_count("default")-1:
-			sprite.set_frame(0)
-		else:
-			sprite.set_frame(sprite.get_frame() + 1)
-		frameTimer = 0
-
 func _ready():
 	root = get_tree().get_root().get_node("game")
 	root.get_node("HUDLayer/player_health").set_text("Player Health: " + str(health))
 	set_fixed_process(true)
-	set_process(true)
 	set_process_input(true)
