@@ -3,6 +3,9 @@ extends RigidBody2D
 
 const Utils = preload("utils.gd")
 
+onready var health_node = get_node("health")
+var root = null
+
 export var speed = 300
 export var torque = 4000
 export var acceleration = 300
@@ -17,9 +20,10 @@ var landed = false
 var exited_ship = false
 
 var current_speed = 0
-var health = 10
 
 func _fixed_process(delta):
+	root.get_node("HUDLayer/ship_health").set_text("Ship Health: " + str(health_node.health))
+	
 	current_speed = get_linear_velocity().length()
 	on_ground = false
 	
@@ -46,7 +50,7 @@ func _fixed_process(delta):
 
 func body_enter(who):
 	if current_speed > max_landing_speed:
-		hit(self)
+		health_node.hit(null,1)
 
 func _input(event):
 	if event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship:
@@ -84,34 +88,29 @@ func enter_ship():
 		
 		exited_ship = false
 
-func hit(bullet):
+func hit(projectile, damage):
 	ObjectFactory.create_fx_explosion(get_global_pos())
-	var root = get_tree().get_root().get_node("game")
-	health -= 1
-	if health < 0: 
-		health = 0
-	root.get_node("HUDLayer/ship_health").set_text("Ship Health: " + str(health))
-	if health == 0:
-		root.get_node("HUDLayer/ship_health").set_text("Ship Destroyed")
-		root.get_node("HUDLayer/ship_health").add_color_override("font_color", Color(1,0,0))
-		if exited_ship:
-			queue_free()
-		else:
-			root.get_node("HUDLayer/player_health").set_text("Player Killed")
-			root.get_node("HUDLayer/player_health").add_color_override("font_color", Color(1,0,0))
-			hide()
-			#turn off collision & gravity & everything
-			get_node("CollisionShape2D").set_trigger(true)
-			get_node("Area2D").set_monitorable(false)
-			set_linear_velocity(Vector2(0,0))
-			set_gravity_scale(0)
-			set_fixed_process(false)
-			set_process_input(false)
-			set_name("ship_dead") # hack to get turrets to stop firing
+
+func _death(projectile):
+	root.get_node("HUDLayer/ship_health").set_text("Ship Destroyed")
+	root.get_node("HUDLayer/ship_health").add_color_override("font_color", Color(1,0,0))
+	if exited_ship:
+		queue_free()
+	else:
+		root.get_node("HUDLayer/player_health").set_text("Player Killed")
+		root.get_node("HUDLayer/player_health").add_color_override("font_color", Color(1,0,0))
+		hide()
+		#turn off collision & gravity
+		get_node("CollisionShape2D").set_trigger(true)
+		get_node("Area2D").set_monitorable(false)
+		set_linear_velocity(Vector2(0,0))
+		set_gravity_scale(0)
+		set_fixed_process(false)
+		set_process_input(false)
+		set_name("ship_dead") # hack to get turrets to stop firing
 
 func _ready():
-	var root = get_tree().get_root().get_node("game")
-	root.get_node("HUDLayer/ship_health").set_text("Ship Health: " + str(health))
+	root = get_tree().get_root().get_node("game")
 	set_contact_monitor(true)
 	set_max_contacts_reported(5)
 	connect("body_enter", self, "body_enter")

@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/ship.gd" type="Script" id=1]
 [ext_resource path="res://gfx/ship.png" type="Texture" id=2]
+[ext_resource path="res://scripts/health.gd" type="Script" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, -10, 8.66025, 5, -8.66025, 5 )
 
-[node name="RigidBody2D" type="RigidBody2D"]
+[node name="ship" type="RigidBody2D"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -84,5 +85,11 @@ drag_margin/left = 0.1
 drag_margin/top = 0.1
 drag_margin/right = 0.1
 drag_margin/bottom = 0.1
+
+[node name="health" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
+max_health = 10
+is_invincible = false
 
 

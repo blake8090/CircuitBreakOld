@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scripts/character.gd" type="Script" id=1]
 [ext_resource path="res://gfx/player/anim/idle_shoot.png" type="Texture" id=2]
 [ext_resource path="res://gfx/player/anim/idle.png" type="Texture" id=3]
+[ext_resource path="res://scripts/health.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -80,7 +81,6 @@ transform/scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -90 )
 hframes = 4
-frame = 3
 region_rect = Rect2( 0, 0, 500, 500 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -125,5 +125,11 @@ playback/active = true
 playback/speed = 1.0
 blend_times = [  ]
 autoplay = "idle"
+
+[node name="health" type="Node" parent="."]
+
+script/script = ExtResource( 4 )
+max_health = 5
+is_invincible = false
 
 

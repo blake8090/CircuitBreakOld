@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://scripts/turret.gd" type="Script" id=1]
 [ext_resource path="res://gfx/turret.png" type="Texture" id=2]
+[ext_resource path="res://scripts/health.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -46,6 +47,12 @@ process_mode = 1
 wait_time = 5.0
 one_shot = false
 autostart = false
+
+[node name="health" type="Node" parent="."]
+
+script/script = ExtResource( 3 )
+max_health = 1
+is_invincible = false
 
 [connection signal="enter_screen" from="visibility" to="." method="_on_visibility_enter_screen"]
 

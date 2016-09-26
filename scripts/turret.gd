@@ -4,6 +4,7 @@ extends Area2D
 var root = null
 const Utils = preload("utils.gd")
 onready var shoot_timer = get_node("shoot_timer")
+onready var health_node = get_node("health")
 
 export var bullet_speed = 500
 var can_shoot = false
@@ -38,7 +39,8 @@ func _fixed_process(delta):
 					shoot_timer.start()
 					can_shoot = false
 
-func hit(bullet):
+# no need for hit(projectile, damage) as this turret only has 1 health
+func _death(projectile):
 	ObjectFactory.create_fx_explosion(get_global_pos())
 	queue_free()
 
