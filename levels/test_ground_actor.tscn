@@ -1,0 +1,303 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/ground_actor_test.gd" type="Script" id=1]
+[ext_resource path="res://gfx/player/anim/idle_shoot.png" type="Texture" id=2]
+[ext_resource path="res://scripts/health.gd" type="Script" id=3]
+[ext_resource path="res://gfx/shot.png" type="Texture" id=4]
+[ext_resource path="res://levels/tileset.xml" type="TileSet" id=5]
+[ext_resource path="res://gfx/block.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 18.7821 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 10, 10 )
+
+[node name="node" type="Node2D"]
+
+[node name="ground_actor_test" type="KinematicBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, -2 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+max_speed = 300
+acceleration = 15
+jump_height = 350
+variable_jump_height = 100
+friction = 50
+gravity = 800
+
+[node name="Sprite" type="Sprite" parent="ground_actor_test"]
+
+transform/scale = Vector2( 0.15, 0.15 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -90 )
+hframes = 4
+region_rect = Rect2( 0, 0, 500, 500 )
+
+[node name="health" type="Node" parent="ground_actor_test"]
+
+script/script = ExtResource( 3 )
+max_health = 5
+is_invincible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ground_actor_test"]
+
+transform/pos = Vector2( 0, -2 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="Camera2D" type="Camera2D" parent="ground_actor_test"]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="point1" type="Sprite" parent="ground_actor_test"]
+
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="point2" type="Sprite" parent="ground_actor_test"]
+
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+modulate = Color( 1, 0, 0, 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 5 )
+cell/size = Vector2( 32, 32 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( -589768, 0, -524232, 0, -393220, 0, -458696, 0, -327684, 0, -393160, 0, -262148, 0, -327624, 0, -196613, 0, -196612, 0, -262088, 0, -131077, 0, -131076, 0, -196552, 0, -65541, 0, -65540, 0, -131066, 1, -131065, 0, -131064, 0, -131063, 0, -131062, 0, -131061, 3, -131016, 0, -5, 0, -4, 0, -65531, 1, -65530, 0, -65529, 0, -65528, 0, -65527, 0, -65526, 0, -65525, 0, -65524, 3, -65499, 1, -65498, 0, -65497, 0, -65496, 0, -65495, 0, -65494, 3, -65480, 0, 65532, 0, 4, 1, 5, 0, 6, 0, 7, 0, 8, 0, 9, 0, 10, 0, 11, 0, 12, 0, 13, 3, 36, 1, 37, 0, 38, 0, 39, 0, 40, 0, 41, 0, 42, 0, 43, 3, 56, 0, 131069, 0, 131070, 0, 131071, 0, 65536, 0, 65537, 0, 65538, 0, 65539, 0, 65540, 0, 65541, 0, 65542, 0, 65543, 0, 65544, 0, 65545, 0, 65546, 0, 65547, 0, 65548, 0, 65549, 0, 65550, 3, 65571, 1, 65572, 0, 65573, 0, 65574, 0, 65575, 0, 65576, 0, 65577, 0, 65578, 0, 65579, 0, 65580, 3, 65592, 0, 196605, 0, 196606, 0, 196607, 0, 131072, 0, 131073, 0, 131074, 0, 131075, 0, 131076, 0, 131077, 0, 131078, 0, 131079, 0, 131080, 0, 131081, 0, 131082, 0, 131083, 0, 131084, 0, 131085, 0, 131086, 0, 131087, 3, 131106, 1, 131107, 0, 131108, 0, 131109, 0, 131110, 0, 131111, 0, 131112, 0, 131113, 0, 131114, 0, 131115, 0, 131116, 0, 131117, 3, 131128, 0, 196612, 0, 196613, 0, 196614, 0, 196615, 0, 196616, 0, 196617, 0, 196618, 0, 196619, 0, 196620, 0, 196621, 0, 196622, 0, 196623, 0, 196624, 3, 196641, 1, 196642, 0, 196643, 0, 196644, 0, 196645, 0, 196646, 0, 196647, 0, 196648, 0, 196649, 0, 196650, 0, 196651, 0, 196652, 0, 196653, 0, 196654, 3, 196664, 0, 262156, 0, 262157, 0, 262158, 0, 262159, 0, 262160, 0, 262161, 0, 262162, 0, 262163, 0, 262164, 0, 262165, 0, 262166, 0, 262167, 0, 262168, 0, 262169, 0, 262170, 0, 262171, 0, 262172, 0, 262173, 0, 262174, 0, 262175, 0, 262176, 0, 262177, 0, 262178, 0, 262179, 0, 262180, 0, 262181, 0, 262182, 0, 262183, 0, 262184, 0, 262185, 0, 262186, 0, 262187, 0, 262188, 0, 262189, 0, 262190, 0, 262191, 0, 262192, 0, 262193, 0, 262194, 0, 262195, 0, 262196, 0, 262197, 0, 262198, 0, 262199, 0, 262200, 0 )
+
+[node name="box" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 323.468, -79.8704 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box1" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 715.045, 95.5607 )
+transform/scale = Vector2( 1, 2 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box1"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box1"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box2" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1158.29, 30.2353 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box2"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box2"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box3" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1181.4, 0.443844 )
+transform/scale = Vector2( 1, 3 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box3"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box3"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box4" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1214.68, -56.3783 )
+transform/scale = Vector2( 1.4711, 1.51671 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box4"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box4"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box5" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1257.14, -68.3199 )
+transform/scale = Vector2( 1.4711, 1.51671 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box5"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box5"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="box6" type="StaticBody2D" parent="."]
+
+editor/display_folded = true
+transform/pos = Vector2( 1285.67, -22.5438 )
+transform/scale = Vector2( 1.4711, 1.51671 )
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="Sprite" type="Sprite" parent="box6"]
+
+texture = ExtResource( 6 )
+modulate = Color( 0, 0.132813, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="box6"]
+
+transform/scale = Vector2( 1.6, 1.6 )
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+
