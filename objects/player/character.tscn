@@ -74,6 +74,12 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+max_speed = 300
+acceleration = 15
+jump_height = 350
+variable_jump_height = 100
+friction = 50
+gravity = 800
 
 [node name="Sprite" type="Sprite" parent="."]
 

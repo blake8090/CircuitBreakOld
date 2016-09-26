@@ -63,6 +63,8 @@ func _fixed_process(delta):
 			_velocity.x -= acceleration
 		# recalculate gravity for current x-velocity to avoid sliding down slopes at low speeds
 		if not _is_jumping and not _is_falling: frame_gravity = _calc_gravity_on_slope(abs(_velocity.x))
+		# update facing
+		_facing_right = false
 	elif action_move_right and can_move_right:
 		if test_move(Vector2(-1,-1)): _velocity.x = 0
 		if _velocity.x < 0: 
@@ -70,6 +72,8 @@ func _fixed_process(delta):
 		else: 
 			_velocity.x += acceleration
 		if not _is_jumping and not _is_falling: frame_gravity = _calc_gravity_on_slope(abs(_velocity.x))
+		# update facing
+		_facing_right = true
 	else:
 		# apply friction if not moving (unless we hit a wall, then stop immediately)
 		if test_move(Vector2(-1,-1)) or test_move(Vector2(1,-1)):
