@@ -11,6 +11,7 @@ export var jump_height = 350
 export var variable_jump_height = 100
 export var friction = 50
 export var gravity = 800
+export(bool) var can_double_jump = false
 
 var _velocity = Vector2()
 var _can_wall_jump = true
@@ -19,6 +20,7 @@ var _is_jumping = false
 var _is_falling = false
 var _facing_right = true
 var _jump_pressed = false
+var _double_jumped = false
 
 func _ready():
 	set_fixed_process(true)
@@ -31,6 +33,7 @@ func _fixed_process(delta):
 		_velocity.y = 0;
 		_is_jumping = false
 		_is_falling = false
+		_double_jumped = false
 	else:
 		frame_gravity = gravity
 		_is_falling = true
@@ -40,7 +43,7 @@ func _fixed_process(delta):
 		_velocity.y = 0
 
 	# force player to release button in order to jump again
-	if not _is_falling and _jump_pressed:
+	if  _jump_pressed:
 		_can_jump = false
 
 	# double checking left and right avoids buggy movement 
@@ -94,7 +97,9 @@ func _fixed_process(delta):
 
 	if action_jump:
 		_jump_pressed = true
-		if not _is_falling and _can_jump:
+		if (not _is_falling or (can_double_jump and not _double_jumped)) and _can_jump:
+			if _is_falling: 
+				_double_jumped = true
 			_is_jumping = true
 			_velocity.y = -jump_height
 	else:

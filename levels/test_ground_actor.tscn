@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scripts/ground_actor_test.gd" type="Script" id=1]
-[ext_resource path="res://gfx/player/anim/idle_shoot.png" type="Texture" id=2]
+[ext_resource path="res://gfx/character.png" type="Texture" id=2]
 [ext_resource path="res://scripts/health.gd" type="Script" id=3]
 [ext_resource path="res://gfx/shot.png" type="Texture" id=4]
 [ext_resource path="res://levels/tileset.xml" type="TileSet" id=5]
@@ -23,7 +23,7 @@ extents = Vector2( 10, 10 )
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, -2 )
+shapes/0/transform = Matrix32( 0.776007, 0, 0, 0.78339, -0.0879176, 1.64505 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -35,13 +35,11 @@ jump_height = 350
 variable_jump_height = 100
 friction = 50
 gravity = 800
+can_double_jump = true
 
 [node name="Sprite" type="Sprite" parent="ground_actor_test"]
 
-transform/scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 2 )
-offset = Vector2( 0, -90 )
-hframes = 4
 region_rect = Rect2( 0, 0, 500, 500 )
 
 [node name="health" type="Node" parent="ground_actor_test"]
@@ -52,7 +50,8 @@ is_invincible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ground_actor_test"]
 
-transform/pos = Vector2( 0, -2 )
+transform/pos = Vector2( -0.0879176, 1.64505 )
+transform/scale = Vector2( 0.776007, 0.78339 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -109,7 +108,8 @@ tile_data = IntArray( -589768, 0, -524232, 0, -393220, 0, -458696, 0, -327684, 0
 [node name="box" type="StaticBody2D" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 323.468, -79.8704 )
+transform/pos = Vector2( 318.557, -114.578 )
+transform/scale = Vector2( 1, 5.95968 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
@@ -247,8 +247,8 @@ _update_shape_index = 0
 [node name="box5" type="StaticBody2D" parent="."]
 
 editor/display_folded = true
-transform/pos = Vector2( 1257.14, -68.3199 )
-transform/scale = Vector2( 1.4711, 1.51671 )
+transform/pos = Vector2( 1260.13, -84.0518 )
+transform/scale = Vector2( 1.4711, 2.49481 )
 input/pickable = false
 shapes/0/shape = SubResource( 2 )
 shapes/0/transform = Matrix32( 1.6, 0, 0, 1.6, 0, 0 )
