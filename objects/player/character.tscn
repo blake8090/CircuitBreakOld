@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scripts/character.gd" type="Script" id=1]
-[ext_resource path="res://gfx/player/anim/run.png" type="Texture" id=2]
-[ext_resource path="res://gfx/player/anim/idle.png" type="Texture" id=3]
-[ext_resource path="res://gfx/player/anim/idle_shoot.png" type="Texture" id=4]
+[ext_resource path="res://gfx/player/anim/idle.png" type="Texture" id=2]
+[ext_resource path="res://gfx/player/anim/idle_shoot.png" type="Texture" id=3]
+[ext_resource path="res://gfx/player/anim/run.png" type="Texture" id=4]
 [ext_resource path="res://scripts/health.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -21,7 +21,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 3 ) ] }
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 2 ) ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:vframes")
 tracks/1/interp = 1
@@ -48,7 +48,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 4 ) ] }
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 3 ) ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
@@ -75,7 +75,7 @@ tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
 tracks/0/imported = false
-tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 2 ) ] }
+tracks/0/keys = { "times":FloatArray( 0 ), "transitions":FloatArray( 1 ), "update":1, "values":[ ExtResource( 4 ) ] }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:vframes")
 tracks/1/interp = 1
@@ -114,8 +114,8 @@ gravity = 800
 transform/scale = Vector2( 0.15, 0.15 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -90 )
-vframes = 3
-hframes = 3
+vframes = 2
+hframes = 4
 region_rect = Rect2( 0, 0, 500, 500 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

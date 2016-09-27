@@ -72,6 +72,8 @@ func _handle_animation():
 			# limit playing speed to base value above 0 to ensure fluid motion at low speeds
 			if speed < 0.3: speed = 0.3
 			anim_player.set_speed(speed)
+		else: # make sure all other animations are at full speed
+			anim_player.set_speed(1)
 
 func hit(projectile, damage):
 	var p = ObjectFactory.create_fx_explosion(get_global_pos())
