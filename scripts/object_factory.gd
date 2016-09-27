@@ -18,7 +18,7 @@ func create_obj_character(pos):
 	var obj = obj_character.instance()
 	obj.set_pos(pos)
 	get_tree().get_root().get_node("game").add_child(obj)
-	obj.get_node("Camera2D").make_current()
+	#obj.get_node("Camera2D").make_current()
 	return obj
 
 func create_fx_explosion(pos):
