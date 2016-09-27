@@ -5,6 +5,7 @@ extends "ground_actor.gd"
 var left = false # if we're moving left
 var ray_length = 80
 var ray_y_offset = 10
+var double_jump_accuracy = 40 # minumum absolute y velocity to attempt double jump
 
 func _ready():
 	set_fixed_process(true)
@@ -37,8 +38,9 @@ func _fixed_process(delta):
 			elif test_move(Vector2(-1,-5)):
 				left = false
 		else:
+			var can_move = test_move(Vector2(1 * direction,-3))
 			# if we're not jumping and can't move forward, then we're stuck
-			if not _is_jumping and test_move(Vector2(1 * direction,-3)):
+			if not _is_jumping and can_move:
 				print("i am stuck!")
 				# move backwards a pixel
 				move(Vector2(1 * -direction, 0))
@@ -46,5 +48,9 @@ func _fixed_process(delta):
 				action_move_right = false
 				action_move_left = false
 				action_jump = false
-			else:  # try to jump over the obstacle!
+			# we need to double jump to try and get over this obstacle, so do nothing until next frame
+			elif _is_falling and (abs(_velocity.y) < double_jump_accuracy) and can_move:
+				action_jump = false
+			else:  # try to jump (or double jump) over the obstacle!
 				action_jump = true
+
