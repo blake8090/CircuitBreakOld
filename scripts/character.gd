@@ -84,13 +84,7 @@ func _death(projectile):
 		print("that bastard '" + str(projectile.shooter.get_ref().get_name()) + "' killed me!")
 	root.get_node("HUDLayer/player_health").set_text("Player Killed")
 	root.get_node("HUDLayer/player_health").add_color_override("font_color", Color(1,0,0))
-	hide()
-	#turn off collision & gravity
-	get_node("CollisionShape2D").set_trigger(true)
-	set_fixed_process(false)
-	set_process_input(false)
-	set_process(false)
-	set_name("player_dead") # hack to get turrets to stop firing
+	queue_free()
 
 func _input(event):
 	if event.is_action("shoot") and not event.is_echo() and event.is_pressed():

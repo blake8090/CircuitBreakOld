@@ -54,7 +54,6 @@ func body_enter(who):
 
 func _input(event):
 	if event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship:
-		print("exit ship")
 		exit_ship()
 	elif event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and exited_ship:
 		enter_ship()
@@ -98,20 +97,11 @@ func hit(projectile, damage):
 func _death(projectile):
 	root.get_node("HUDLayer/ship_health").set_text("Ship Destroyed")
 	root.get_node("HUDLayer/ship_health").add_color_override("font_color", Color(1,0,0))
-	if exited_ship:
-		queue_free()
-	else:
+	if not exited_ship:
 		root.get_node("HUDLayer/player_health").set_text("Player Killed")
 		root.get_node("HUDLayer/player_health").add_color_override("font_color", Color(1,0,0))
-		hide()
-		#turn off collision & gravity
-		get_node("CollisionShape2D").set_trigger(true)
-		get_node("Area2D").set_monitorable(false)
-		set_linear_velocity(Vector2(0,0))
-		set_gravity_scale(0)
-		set_fixed_process(false)
-		set_process_input(false)
-		set_name("ship_dead") # hack to get turrets to stop firing
+	queue_free()
+
 
 func _ready():
 	root = get_tree().get_root().get_node("game")
