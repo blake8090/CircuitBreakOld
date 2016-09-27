@@ -71,6 +71,7 @@ func exit_ship():
 		
 		ObjectFactory.create_obj_character(get_global_pos())
 		root.get_node("camera_anchor").set_target("character")
+		root.get_node("camera_anchor").set_target_zoom(0.8, 0.05)
 		exited_ship = true
 
 func enter_ship():
@@ -81,7 +82,9 @@ func enter_ship():
 	
 	if distance <= enter_distance:
 		root.get_node("character").queue_free()
+		
 		root.get_node("camera_anchor").set_target("ship")
+		root.get_node("camera_anchor").set_target_zoom(1, 0.05)
 		
 		# unfreeze ship
 		get_node("CollisionShape2D").set_trigger(false)

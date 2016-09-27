@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scripts/camera_anchor.gd" type="Script" id=1]
+
+[node name="camera_anchor" type="Node2D"]
+
+script/script = ExtResource( 1 )
+default_target = "ship"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = false
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = true
+smoothing/speed = 5.0
+drag_margin/left = 0.1
+drag_margin/top = 0.1
+drag_margin/right = 0.1
+drag_margin/bottom = 0.1
+
+
