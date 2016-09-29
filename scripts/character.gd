@@ -75,10 +75,6 @@ func _handle_animation():
 		else: # make sure all other animations are at full speed
 			anim_player.set_speed(1)
 
-func hit(projectile, damage):
-	var p = ObjectFactory.create_fx_explosion(get_global_pos())
-	p.set_color(Color(1,0,0))
-
 func _death(projectile):
 	if projectile.shooter.get_ref() != null:
 		print("that bastard '" + str(projectile.shooter.get_ref().get_name()) + "' killed me!")

@@ -31,6 +31,7 @@ func hit_object(obj):
 		if not obj.has_method("is_bullet"):
 			if obj.has_node("health"):
 				obj.get_node("health").hit(self,1)
+			ObjectFactory.create_fx_explosion(get_global_pos())
 			queue_free()
 
 # dummy function for self-identification among duplicates

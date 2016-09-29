@@ -50,7 +50,8 @@ func _fixed_process(delta):
 
 func body_enter(who):
 	if current_speed > max_landing_speed:
-		health_node.hit(null,1)
+		ObjectFactory.create_fx_explosion(get_global_pos())
+		health_node.hit(self,1)
 
 func _input(event):
 	if event.is_action("exit_ship") and not event.is_echo() and event.is_pressed() and not exited_ship:
@@ -90,9 +91,6 @@ func enter_ship():
 		set_gravity_scale(gravity)
 		
 		exited_ship = false
-
-func hit(projectile, damage):
-	ObjectFactory.create_fx_explosion(get_global_pos())
 
 func _death(projectile):
 	root.get_node("HUDLayer/ship_health").set_text("Ship Destroyed")
