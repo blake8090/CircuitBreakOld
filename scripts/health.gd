@@ -10,25 +10,25 @@ export(bool) var is_invincible = false
 var health
 
 func _ready():
-	health = max_health
+    health = max_health
 
 # called by a projectile when it hits an actor
 func hit(projectile, damage):
-	# "overloading"...
-	if parent.has_method("hit"):
-		parent.hit(projectile, damage)
-	if not is_invincible:
-		health -= damage
-		if health <= 0:
-			health = 0
-			parent._death(projectile)
+    # "overloading"...
+    if parent.has_method("hit"):
+        parent.hit(projectile, damage)
+    if not is_invincible:
+        health -= damage
+        if health <= 0:
+            health = 0
+            parent._death(projectile)
 
 # heals by a specified amount
 func heal(amount):
-	health += amount
-	if health > max_health: 
-		health = max_health
+    health += amount
+    if health > max_health: 
+        health = max_health
 
 # fully heals
 func full_heal():
-	health = max_health
+    health = max_health
